@@ -3,8 +3,9 @@
 		var settings = $.extend({
 			timeout: 1000,
 			fieldEvents : 'change keyup propertychange input',
-			fieldSelector: ":input:not(input[type=submit]):not(input[type=button])"
-		}, options); //TODO edit options 
+			fieldSelector: ":input:not(input[type=submit]):not(input[type=button])",
+			url: null
+		}, options); //TODO edit options
 
 		var initForm = function ($form) {
 			var timeoutId = 0;
@@ -21,7 +22,7 @@
 			$.ajax({
 				url: $form.attr('action'),
 				type: $form.attr('method'),
-				data: $form.serialize(), // serializes the form's elements.
+				data: $form.serialize() + '&isAjax=1', // serializes the form's elements.
 				beforeSend: function (xhr) {
 					// Let them know we are saving
 					var ret = $form.triggerHandler('beforeSave.autoSaveForm', [$form, xhr]);
