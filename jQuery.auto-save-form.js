@@ -20,7 +20,7 @@
 
 		var save = function ($form) {
 			$.ajax({
-				url: $form.attr('action'),
+				url: settings.url ? settings.url : $form.attr('action'),
 				type: $form.attr('method'),
 				data: $form.serialize() + '&isAjax=1', // serializes the form's elements.
 				beforeSend: function (xhr) {
@@ -46,7 +46,7 @@
 			}
 
 			$form.submit(function (e) {
-				save();
+				save($form);
 				e.preventDefault();
 			});
 
