@@ -46,7 +46,7 @@
 			}
 
 			$form.submit(function (e) {
-				save($form);
+				save();
 				e.preventDefault();
 			});
 
