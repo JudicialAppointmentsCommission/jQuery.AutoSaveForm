@@ -18,6 +18,15 @@
 			});
 		};
 
+		var sleep = function (milliseconds) {
+			var start = new Date().getTime();
+			for (var i = 0; i < 1e7; i++) {
+				if ((new Date().getTime() - start) > milliseconds){
+					break;
+				}
+			}
+		};
+
 		var save = function ($form) {
 			$.ajax({
 				url: settings.url ? settings.url : $form.attr('action'),
@@ -31,6 +40,9 @@
 					}
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
+					if (jqXHR.status === 0) {
+						sleep(500);
+					}
 					$form.trigger('saveError.autoSaveForm', [$form, jqXHR, textStatus, errorThrown]);
 				},
 				success: function (data, textStatus, jqXHR) {
